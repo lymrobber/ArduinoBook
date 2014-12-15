@@ -1,6 +1,13 @@
-int In1 = 8;
+/*
+ * Motor1 pins
+ */
+int In1 = 8; 
 int In2 = 9;
 int EnA = 10;
+
+/*
+ * Motor2 pins
+ */
 int In3 = 11;
 int In4 = 12;
 int EnB = 13;
@@ -17,48 +24,45 @@ void setup()
 
 void loop()
 {
-    digitalWrite(In1,HIGH);
-    digitalWrite(In2,LOW);
-    analogWrite(EnA, 127);
+    int speed;
 
-    digitalWrite(In3,HIGH);
-    digitalWrite(In4,LOW);
-    analogWrite(EnB, 127);
+    /* Set motor1 direction clockwise */
+    digitalWrite(In1, HIGH);
+    digitalWrite(In2, LOW);
 
-    delay(5000);
-    
-    analogWrite(EnA, 255);
-    analogWrite(EnB, 255);
+    /* Set motor1 direction anticlockwise */
+    digitalWrite(In3, LOW);
+    digitalWrite(In4, HIGH);
 
-    delay(5000);
-
-    digitalWrite(In1,LOW);
-    digitalWrite(In2,LOW);
-    digitalWrite(In3,LOW);
-    digitalWrite(In4,LOW);
-    
+    /* Start */
+    analogWrite(EnA, 50);
+    analogWrite(EnB, 50);
     delay(2000);
 
-    digitalWrite(In2,HIGH);
-    digitalWrite(In1,LOW);
-    analogWrite(EnA, 127);
+    /* Speed up */
+    for (speed = 50; speed <= 255; speed += 5)
+    {
+        analogWrite(EnA, speed);
+        analogWrite(EnB, speed);
+        delay(100);
+    }
 
-    digitalWrite(In4,HIGH);
-    digitalWrite(In3,LOW);
-    analogWrite(EnB, 127);
-
-    delay(5000);
-    
+    /* Speed keeping */
     analogWrite(EnA, 255);
     analogWrite(EnB, 255);
+    delay(3000);
 
-    delay(5000);
+    /* Speed down */
+    for (speed = 255; speed >= 0; speed -= 5)
+    {
+        analogWrite(EnA, speed);
+        analogWrite(EnB, speed);
+        delay(100);
+    }
 
-    digitalWrite(In1,LOW);
-    digitalWrite(In2,LOW);
-    digitalWrite(In3,LOW);
-    digitalWrite(In4,LOW);
-    
-    delay(2000);
+    /* Stop */
+    analogWrite(EnA, 0);
+    analogWrite(EnB, 0);
+    delay(2000);        
 }
 
