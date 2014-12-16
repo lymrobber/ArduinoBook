@@ -6,6 +6,7 @@ void setup()
 {
     pinMode(relay_pin, OUTPUT);
     Serial.begin(9600);
+    Serial.println("I'am ready");
 }
 
 void loop()
@@ -24,7 +25,7 @@ void loop()
             if (Serial.available() > 0)
             {
                 cmd[i] = Serial.read();
-                Serial.write(cmd[i]);
+                //Serial.write(cmd[i]);
                 delay(1);
             }
             else
@@ -41,10 +42,12 @@ void loop()
         if (0 == strncmp(cmd, "on", 2))
         {
             digitalWrite(relay_pin, HIGH);
+            Serial.println("commmand:on");
         }
         else if (0 == strncmp(cmd, "off", 3))
         {
             digitalWrite(relay_pin, LOW);
+            Serial.println("commmand:off");
         }
         else
         { 
