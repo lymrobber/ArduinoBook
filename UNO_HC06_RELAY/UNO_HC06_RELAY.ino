@@ -24,7 +24,6 @@ void loop()
             if (Serial.available() > 0)
             {
                 cmd[i] = Serial.read();
-                //Serial.write(cmd[i]);
                 delay(1);
             }
             else
@@ -37,7 +36,6 @@ void loop()
     
     if (valid_cmd)
     {
-        valid_cmd = false;
         if (0 == strncmp(cmd, "on", 2))
         {
             digitalWrite(relay_pin, HIGH);
@@ -52,6 +50,7 @@ void loop()
         { 
             Serial.println("X");
         }
+        valid_cmd = false;
     }
     delay(10);
 }
